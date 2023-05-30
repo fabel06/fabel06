@@ -1,0 +1,40 @@
+import time
+from selenium import webdriver
+#chrome driver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from select import select
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import NoSuchElementException
+
+
+service_object= Service("Users/faruk.eskin/Desktop/PythonProjectSelenium/chromeDriver/chromedriver.exe")
+driver = webdriver.Chrome(service= service_object)
+driver.get("https://www.hepsiburada.com/")
+driver.maximize_window()
+print(driver.title)
+driver.find_element(By.CSS_SELECTOR, "[placeholder='Ürün, kategori veya marka ara']").send_keys("apple")
+driver.implicitly_wait(5)
+driver.find_element(By.XPATH, "//div[@class='searchBoxOld-yDJzsIfi_S5gVgoapx6f']").click()
+driver.implicitly_wait(5)
+#Aşağı inip girişimci kadın ürünleri togle butonuna tıklanılır
+driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+driver.implicitly_wait(5)
+driver.find_element(By.XPATH, "/html//div[@id='girisimci']/div/div/div/div[@class='FacetList-MPcgXv1XWXoHQhvH7du0']//button[@role='switch']").click()
+driver.implicitly_wait(3)
+#Çok satanlar olarak filtreleme adımları
+driver.find_element(By.CSS_SELECTOR, ".horizontalSortingBar-Ce404X9mUYVCRa5bjV4D").click()
+time.sleep(1)
+driver.find_element(By.XPATH, "//div[contains(text(),'Çok satanlar')]").click()
+#1000 TL üstündeki ürünü sepete ekle
+
+driver.implicitly_wait(10)
+print("clicking add to cart")
+
+driver.find_element(By.)
+
+time.sleep(3)
+driver.close()
