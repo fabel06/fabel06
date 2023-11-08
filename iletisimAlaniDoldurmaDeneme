@@ -1,0 +1,58 @@
+import time
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+"""
+Locator'ları tanımladığım yer
+"""
+#İletişim Butonuna ait locator
+loc_iletisim_butonu = (By.CSS_SELECTOR, "li[class='menu-item menu-item-type-post_type menu-item-object-page menu-item-1964']")
+loc_tag = (By.TAG_NAME, "a")
+#isim alanina ait locator
+loc_isim = (By.CSS_SELECTOR, "input[id='form-field-4a9bd50']")
+loc_mesaj = (By.CSS_SELECTOR, "textarea[id='form-field-bd5e391']")
+loc_email = (By.CSS_SELECTOR, "input[id='form-field-7e4dd5d']")
+loc_cepTelefonu = (By.CSS_SELECTOR, "input[id='form-field-281bfbd']")
+loc_gonder_butonu = (By.CSS_SELECTOR, "button[class='raven-submit-button']")
+
+
+driver = webdriver.Chrome()
+#Turkish testing board 'ı çağırdığım kısım
+driver.get("https://www.turkishtestingboard.org/")
+driver.maximize_window()
+driver.implicitly_wait(10)
+
+
+"""
+locator'ı çekip işlem yaptığımız kısım
+"""
+iletisim_li = driver.find_element(*loc_iletisim_butonu)
+iletisim = iletisim_li.find_element(*loc_tag)
+
+iletisim.click()
+time.sleep(1)
+iletisim1 = driver.find_element(*loc_isim)
+
+iletisim1.send_keys("Faruk Eskin")
+loc_isim = WebDriverWait(driver, 4).until(EC.element_to_be_clickable(loc_isim))
+iletisim2 = driver.find_element(*loc_mesaj)
+iletisim2.send_keys("Merhabalar Nasılsınız????")
+loc_mesaj = WebDriverWait(driver, 4).until(EC.element_to_be_clickable(loc_mesaj))
+iletisim3 = driver.find_element(*loc_email)
+iletisim3.send_keys("faruk.eskin6@gmail.com")
+loc_email = WebDriverWait(driver, 4).until(EC.element_to_be_clickable(loc_email))
+iletisim4 = driver.find_element(*loc_cepTelefonu)
+iletisim4.send_keys("05366103654")
+#4 sn webelementi beklemek için yazılmıştır.
+loc_cepTelefonu = WebDriverWait(driver, 4).until(EC.element_to_be_clickable(loc_cepTelefonu))
+gonder_butonu = driver.find_element(*loc_gonder_butonu)
+
+print("Gönder butonu aktif hale geldi")
+
+time.sleep(2)
+
+driver.close()
